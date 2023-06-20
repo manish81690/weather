@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,13 +9,15 @@ import { Observable } from 'rxjs';
 export class WeatherService {
   private apiUrl:string = 'https://api.openweathermap.org/data/2.5/weather';
   private apiKey:string = 'ea11ac0f0345a0e67c416d88fa799148';
+  private units:string="metric";
 
   constructor(private http: HttpClient) { }
 
   getWeatherData(cityName: string): Observable<any> {
     const params = new HttpParams()
       .set('q', cityName)
-      .set('appid', this.apiKey);
+      .set('appid', this.apiKey)
+      .set('units',this.units);
 
     return this.http.get(this.apiUrl, { params });
   }
